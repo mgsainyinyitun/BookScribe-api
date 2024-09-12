@@ -1,4 +1,4 @@
-package com.sai.bookscribe.services;
+package com.sai.bookscribe.services.auths;
 
 
 import com.sai.bookscribe.entities.UserEntity;

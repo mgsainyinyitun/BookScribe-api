@@ -1,4 +1,4 @@
-package com.sai.bookscribe.services;
+package com.sai.bookscribe.services.auths;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,5 +1,6 @@
 package com.sai.bookscribe.configs;
 
+import com.sai.bookscribe.constants.AppConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -31,11 +32,15 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String version = AppConstant.VERSION;
         http.csrf(AbstractHttpConfigurer::disable)
                         .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(version+"/auth/**").permitAll()
+                                .requestMatchers((version+"/books/public/**")).permitAll()
+                                .requestMatchers((version+"/books/private/**")).authenticated()
+                                .requestMatchers((version+"/books/**")).authenticated()
+                                .requestMatchers((version+"/pages/**")).authenticated()
                                 .requestMatchers("/").authenticated()
-                                .requestMatchers(("/public/**")).permitAll()
                                 .anyRequest().authenticated()
                         )
                 .sessionManagement(mgmt -> mgmt.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

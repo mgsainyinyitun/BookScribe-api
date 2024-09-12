@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,6 +33,9 @@ public class UserEntity implements UserDetails {
     private String password;
 
     private String phone;
+
+    @OneToMany(mappedBy = "user")
+    private Set<BookEntity> books;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

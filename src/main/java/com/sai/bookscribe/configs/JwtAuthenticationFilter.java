@@ -1,6 +1,6 @@
 package com.sai.bookscribe.configs;
 
-import com.sai.bookscribe.services.JwtService;
+import com.sai.bookscribe.services.auths.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

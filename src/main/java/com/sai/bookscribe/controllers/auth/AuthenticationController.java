@@ -1,17 +1,20 @@
 package com.sai.bookscribe.controllers.auth;
 
 
+import com.sai.bookscribe.constants.AppConstant;
 import com.sai.bookscribe.entities.UserEntity;
 import com.sai.bookscribe.messages.auth.LoginRequestMessage;
 import com.sai.bookscribe.messages.auth.LoginResponseMessage;
 import com.sai.bookscribe.messages.auth.RegisterRequestMessage;
-import com.sai.bookscribe.services.AuthenticationService;
-import com.sai.bookscribe.services.JwtService;
+import com.sai.bookscribe.services.auths.AuthenticationService;
+import com.sai.bookscribe.services.auths.JwtService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(AppConstant.VERSION+"/auth")
 @CrossOrigin(origins="*")
 public class AuthenticationController {
     private final JwtService jwtService;
@@ -26,7 +29,6 @@ public class AuthenticationController {
     @PostMapping("signup")
     public ResponseEntity<UserEntity> register(@RequestBody RegisterRequestMessage request) {
         UserEntity response = authenticationService.signup(request);
-
         return ResponseEntity.ok(response);
     }
 
@@ -45,8 +47,11 @@ public class AuthenticationController {
 
     @PostMapping("test")
     public String test() {
-
-
         return "hello ok!";
+    }
+
+    public static UserEntity getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (UserEntity) authentication.getPrincipal();
     }
 }
