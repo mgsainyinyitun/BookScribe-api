@@ -24,8 +24,7 @@ public class PageEntity {
 
     private Integer pageNumber;
 
-    @Lob
-    @Column(name = "contexts")
+    @Column(name = "contexts",columnDefinition = "LONGTEXT")
     private String contexts;
 
     @CreationTimestamp

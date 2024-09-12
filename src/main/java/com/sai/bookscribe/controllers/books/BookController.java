@@ -5,10 +5,14 @@ import com.sai.bookscribe.controllers.auth.AuthenticationController;
 import com.sai.bookscribe.entities.UserEntity;
 import com.sai.bookscribe.messages.book.BookCreateRequest;
 import com.sai.bookscribe.messages.book.BookCreateResponse;
+import com.sai.bookscribe.messages.book.PublicBookRequest;
+import com.sai.bookscribe.messages.book.PublicBookResponse;
 import com.sai.bookscribe.services.books.BookServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(AppConstant.VERSION+"/books")
@@ -21,9 +25,9 @@ public class BookController {
     }
 
     @GetMapping("public")
-    public ResponseEntity<?> getPublicBooks() {
-
-        return  ResponseEntity.ok("public book");
+    public ResponseEntity<?> getPublicBooks(@RequestBody PublicBookRequest request) {
+        List<PublicBookResponse> response =  bookServices.publicBookRequest(request);
+        return  ResponseEntity.ok(response);
     }
 
     @GetMapping("private")

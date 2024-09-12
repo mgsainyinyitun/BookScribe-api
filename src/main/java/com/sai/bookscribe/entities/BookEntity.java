@@ -27,7 +27,7 @@ public class BookEntity {
     @Column(name = "type", nullable = false)
     private BookTypes bookType;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
     private Set<PageEntity> pages;
 
     @CreationTimestamp
