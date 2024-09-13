@@ -34,7 +34,7 @@ public class UserEntity implements UserDetails {
 
     private String phone;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<BookEntity> books;
 
     @CreationTimestamp
@@ -53,6 +53,10 @@ public class UserEntity implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public String getUsrName(){
+        return username;
     }
 
     @Override

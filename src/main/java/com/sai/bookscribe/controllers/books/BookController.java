@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(AppConstant.VERSION+"/books")
+@CrossOrigin(origins="*")
 public class BookController {
 
     private  final BookServices bookServices;
@@ -25,8 +26,8 @@ public class BookController {
     }
 
     @GetMapping("public")
-    public ResponseEntity<?> getPublicBooks(@RequestBody PublicBookRequest request) {
-        List<PublicBookResponse> response =  bookServices.publicBookRequest(request);
+    public ResponseEntity<?> getPublicBooks(@RequestParam(required = false) PublicBookRequest request) {
+        List<PublicBookResponse> response =  bookServices.publicBookRequest();
         return  ResponseEntity.ok(response);
     }
 

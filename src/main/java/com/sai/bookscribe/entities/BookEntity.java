@@ -1,6 +1,7 @@
 package com.sai.bookscribe.entities;
 
 import com.sai.bookscribe.constants.BookTypes;
+import com.sai.bookscribe.constants.ShelfId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,13 @@ public class BookEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private BookTypes bookType;
+
+    @Column(name = "number_of_page")
+    private Integer numberOfPage;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shelf",nullable = true)
+    private ShelfId shelf=ShelfId.SHELF_MIDDLE;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
     private Set<PageEntity> pages;

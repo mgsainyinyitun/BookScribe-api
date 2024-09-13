@@ -17,6 +17,8 @@ public class BookCreateResponse {
 
     private BookTypes type;
 
+    private Integer noOfPage;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -25,6 +27,7 @@ public class BookCreateResponse {
         this.id = book.getId();
         this.username = book.getUser().getUsername();
         this.type = book.getBookType();
+        this.noOfPage = book.getNumberOfPage();
         this.createdAt = book.getCreatedAt();
         this.updatedAt = book.getUpdatedAt();
     }

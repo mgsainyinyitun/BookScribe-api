@@ -11,4 +11,6 @@ public class RegisterRequestMessage {
     private String password;
 
     private String username;
+
+    private String phone;
 }
