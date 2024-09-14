@@ -1,6 +1,7 @@
 package com.sai.bookscribe.messages.book;
 
 import com.sai.bookscribe.constants.ShelfId;
+import com.sai.bookscribe.messages.page.PageCtxResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.List;
 public class PublicBookResponse {
     private Long id;
 
-    List<String> text;
+    List<PageCtxResponse> text;
 
     ShelfId shelf;
 

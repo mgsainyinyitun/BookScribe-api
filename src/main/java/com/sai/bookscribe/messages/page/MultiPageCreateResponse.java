@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PageCtxResponse {
+public class MultiPageCreateResponse {
     private Integer no;
-    private String contexts;
 }

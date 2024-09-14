@@ -6,8 +6,8 @@ import com.sai.bookscribe.entities.PageEntity;
 import com.sai.bookscribe.entities.UserEntity;
 import com.sai.bookscribe.messages.book.BookCreateRequest;
 import com.sai.bookscribe.messages.book.BookCreateResponse;
-import com.sai.bookscribe.messages.book.PublicBookRequest;
 import com.sai.bookscribe.messages.book.PublicBookResponse;
+import com.sai.bookscribe.messages.page.PageCtxResponse;
 import com.sai.bookscribe.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +38,9 @@ public class BookServices {
         List<PublicBookResponse> response = new ArrayList<>();
 
         for(BookEntity book:books){
-            List<String> pgCtx = new ArrayList<>();
+            List<PageCtxResponse> pgCtx = new ArrayList<>();
             for(PageEntity pg:book.getPages()){
-                pgCtx.add(pg.getContexts());
+                pgCtx.add(new PageCtxResponse(pg.getPageNumber(),pg.getContexts()));
             }
             response.add(new PublicBookResponse(book.getId(),pgCtx,book.getShelf(),book.getNumberOfPage()));
         }

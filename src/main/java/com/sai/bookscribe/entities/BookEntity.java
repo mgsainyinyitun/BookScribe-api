@@ -9,7 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,7 +36,7 @@ public class BookEntity {
     private ShelfId shelf=ShelfId.SHELF_MIDDLE;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
-    private Set<PageEntity> pages;
+    private List<PageEntity> pages;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
