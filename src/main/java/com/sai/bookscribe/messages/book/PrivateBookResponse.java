@@ -8,11 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class PublicBookResponse {
+public class PrivateBookResponse {
     private Long id;
 
     List<PageCtxResponse> text;

@@ -4,15 +4,15 @@ import com.sai.bookscribe.constants.BookTypes;
 import com.sai.bookscribe.entities.BookEntity;
 import com.sai.bookscribe.entities.PageEntity;
 import com.sai.bookscribe.entities.UserEntity;
-import com.sai.bookscribe.messages.book.BookCreateRequest;
-import com.sai.bookscribe.messages.book.BookCreateResponse;
-import com.sai.bookscribe.messages.book.PublicBookResponse;
+import com.sai.bookscribe.messages.book.*;
 import com.sai.bookscribe.messages.page.PageCtxResponse;
 import com.sai.bookscribe.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
+import javax.naming.CannotProceedException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BookServices {
@@ -42,9 +42,35 @@ public class BookServices {
             for(PageEntity pg:book.getPages()){
                 pgCtx.add(new PageCtxResponse(pg.getPageNumber(),pg.getContexts()));
             }
-            response.add(new PublicBookResponse(book.getId(),pgCtx,book.getShelf(),book.getNumberOfPage()));
+            response.add(new PublicBookResponse(book.getId(),pgCtx,book.getShelf(),book.getNumberOfPage(),book.getBookType(),book.getUser().getUsrName()));
         }
         return response;
     }
 
+    public List<PrivateBookResponse> privateBookRequest(PrivateBookRequest request,UserEntity user) {
+        List<BookEntity> books = bookRepository.findByBookTypeAndUser(BookTypes.PRIVATE,user);
+        List<PrivateBookResponse> response = new ArrayList<>();
+
+        for(BookEntity book:books){
+            List<PageCtxResponse> pgCtx = new ArrayList<>();
+            for(PageEntity pg:book.getPages()){
+                pgCtx.add(new PageCtxResponse(pg.getPageNumber(),pg.getContexts()));
+            }
+            response.add(new PrivateBookResponse(book.getId(),pgCtx,book.getShelf(),book.getNumberOfPage(),book.getBookType(),book.getUser().getUsrName()));
+        }
+        return response;
+    }
+
+    public BookDeleteResponse deleteBook(Long id, UserEntity user) throws CannotProceedException {
+        BookEntity book = bookRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+
+        if(!book.getUser().getUsername().equals(user.getUsername())){
+            throw new CannotProceedException("User not match!");
+        }
+
+        bookRepository.delete(book);
+
+        return new BookDeleteResponse(book.getId());
+    }
 }

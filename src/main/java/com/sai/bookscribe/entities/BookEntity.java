@@ -35,7 +35,7 @@ public class BookEntity {
     @Column(name = "shelf",nullable = true)
     private ShelfId shelf=ShelfId.SHELF_MIDDLE;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<PageEntity> pages;
 
     @CreationTimestamp
